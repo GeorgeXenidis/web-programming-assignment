@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "registration_requirements")
-public class RegistrationRequirements {
+public class RegistrationRequirement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,11 +20,11 @@ public class RegistrationRequirements {
     @Column(name = "RR_STATUS")
     private StatusEnum status;
 
-    public RegistrationRequirements() {
+    public RegistrationRequirement() {
 //        Empty Constructor
     }
 
-    public RegistrationRequirements(Integer id, String username, StatusEnum status) {
+    public RegistrationRequirement(Integer id, String username, StatusEnum status) {
         this.id = id;
         this.username = username;
         this.status = status;
@@ -56,7 +56,7 @@ public class RegistrationRequirements {
 
     @Override
     public String toString() {
-        return "RegistrationRequirements{" +
+        return "RegistrationRequirement{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", status=" + status +
@@ -66,7 +66,7 @@ public class RegistrationRequirements {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        RegistrationRequirements that = (RegistrationRequirements) o;
+        RegistrationRequirement that = (RegistrationRequirement) o;
         return Objects.equals(id, that.id) && Objects.equals(username, that.username) && status == that.status;
     }
 

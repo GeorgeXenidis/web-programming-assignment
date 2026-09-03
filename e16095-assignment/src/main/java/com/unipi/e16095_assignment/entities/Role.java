@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
-public class Roles {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,11 +17,11 @@ public class Roles {
     @Column(name = "R_NAME")
     private RoleEnum name;
 
-    public Roles() {
+    public Role() {
 //        Empty Constructor
     }
 
-    public Roles(Integer id, RoleEnum name) {
+    public Role(Integer id, RoleEnum name) {
         this.id = id;
         this.name = name;
     }
@@ -44,7 +44,7 @@ public class Roles {
 
     @Override
     public String toString() {
-        return "Roles{" +
+        return "Role{" +
                 "id=" + id +
                 ", name=" + name +
                 '}';
@@ -53,8 +53,8 @@ public class Roles {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Roles roles = (Roles) o;
-        return Objects.equals(id, roles.id) && name == roles.name;
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) && name == role.name;
     }
 
     @Override

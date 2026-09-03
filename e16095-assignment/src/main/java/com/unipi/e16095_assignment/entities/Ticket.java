@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tickets")
-public class Tickets {
+public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,11 +42,11 @@ public class Tickets {
     @Column(name = "A_UPDATED_AT")
     private Date updatedAt;
 
-    public Tickets() {
+    public Ticket() {
 //        Empty Constructor
     }
 
-    public Tickets(Integer id, String title, String description, StatusEnum status, Integer createdBy, Integer assignedTo, Integer categoryId, String attachmentUrl, Date createdAt, Date updatedAt) {
+    public Ticket(Integer id, String title, String description, StatusEnum status, Integer createdBy, Integer assignedTo, Integer categoryId, String attachmentUrl, Date createdAt, Date updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -141,7 +141,7 @@ public class Tickets {
 
     @Override
     public String toString() {
-        return "Tickets{" +
+        return "Ticket{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
@@ -158,8 +158,8 @@ public class Tickets {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Tickets tickets = (Tickets) o;
-        return Objects.equals(id, tickets.id) && Objects.equals(title, tickets.title) && Objects.equals(description, tickets.description) && status == tickets.status && Objects.equals(createdBy, tickets.createdBy) && Objects.equals(assignedTo, tickets.assignedTo) && Objects.equals(categoryId, tickets.categoryId) && Objects.equals(attachmentUrl, tickets.attachmentUrl) && Objects.equals(createdAt, tickets.createdAt) && Objects.equals(updatedAt, tickets.updatedAt);
+        Ticket ticket = (Ticket) o;
+        return Objects.equals(id, ticket.id) && Objects.equals(title, ticket.title) && Objects.equals(description, ticket.description) && status == ticket.status && Objects.equals(createdBy, ticket.createdBy) && Objects.equals(assignedTo, ticket.assignedTo) && Objects.equals(categoryId, ticket.categoryId) && Objects.equals(attachmentUrl, ticket.attachmentUrl) && Objects.equals(createdAt, ticket.createdAt) && Objects.equals(updatedAt, ticket.updatedAt);
     }
 
     @Override

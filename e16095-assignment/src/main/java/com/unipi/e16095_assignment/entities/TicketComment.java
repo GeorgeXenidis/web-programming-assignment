@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ticket_comments")
-public class TicketComments {
+public class TicketComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +26,11 @@ public class TicketComments {
     @Column(name = "TCO_CREATED_AT")
     private Date createdAt;
 
-    public TicketComments() {
+    public TicketComment() {
 //        Empty Constructor
     }
 
-    public TicketComments(Integer id, Integer ticketId, Integer userId, String comment, Date createdAt) {
+    public TicketComment(Integer id, Integer ticketId, Integer userId, String comment, Date createdAt) {
         this.id = id;
         this.ticketId = ticketId;
         this.userId = userId;
@@ -80,7 +80,7 @@ public class TicketComments {
 
     @Override
     public String toString() {
-        return "TicketComments{" +
+        return "TicketComment{" +
                 "id=" + id +
                 ", ticketId=" + ticketId +
                 ", userId=" + userId +
@@ -92,7 +92,7 @@ public class TicketComments {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        TicketComments that = (TicketComments) o;
+        TicketComment that = (TicketComment) o;
         return Objects.equals(id, that.id) && Objects.equals(ticketId, that.ticketId) && Objects.equals(userId, that.userId) && Objects.equals(comment, that.comment) && Objects.equals(createdAt, that.createdAt);
     }
 

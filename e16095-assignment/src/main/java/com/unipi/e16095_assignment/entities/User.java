@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,11 +38,11 @@ public class Users {
     @Column(name = "U_ROLE_ID")
     private Integer roleId;
 
-    public Users() {
+    public User() {
 //        Empty Constructor
     }
 
-    public Users(Integer id, String username, String password, String email, String firstName, String lastName, CountryEnum country, String city, Integer roleId) {
+    public User(Integer id, String username, String password, String email, String firstName, String lastName, CountryEnum country, String city, Integer roleId) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -128,7 +128,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -144,8 +144,8 @@ public class Users {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Users users = (Users) o;
-        return Objects.equals(id, users.id) && Objects.equals(username, users.username) && Objects.equals(password, users.password) && Objects.equals(email, users.email) && Objects.equals(firstName, users.firstName) && Objects.equals(lastName, users.lastName) && country == users.country && Objects.equals(city, users.city) && Objects.equals(roleId, users.roleId);
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && country == user.country && Objects.equals(city, user.city) && Objects.equals(roleId, user.roleId);
     }
 
     @Override

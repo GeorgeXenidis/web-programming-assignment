@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ticket_categories")
-public class TicketCategories {
+public class TicketCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +19,11 @@ public class TicketCategories {
     @Column(name = "TCA_DEFAULT_PRIORITY")
     private String defaultPriority;
 
-    public TicketCategories() {
+    public TicketCategory() {
 //        Empty Constructor
     }
 
-    public TicketCategories(Integer id, String name, String defaultPriority) {
+    public TicketCategory(Integer id, String name, String defaultPriority) {
         this.id = id;
         this.name = name;
         this.defaultPriority = defaultPriority;
@@ -55,7 +55,7 @@ public class TicketCategories {
 
     @Override
     public String toString() {
-        return "TicketCategories{" +
+        return "TicketCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", defaultPriority='" + defaultPriority + '\'' +
@@ -65,7 +65,7 @@ public class TicketCategories {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        TicketCategories that = (TicketCategories) o;
+        TicketCategory that = (TicketCategory) o;
         return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(defaultPriority, that.defaultPriority);
     }
 
