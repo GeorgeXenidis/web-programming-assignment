@@ -29,17 +29,18 @@ public class Users {
 
     @Column(name = "u_role",
             nullable = false)
-    private RoleEnum roleEnum;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
 
     public Users() {
     }
 
-    public Users(Long id, String username, String password, String email, RoleEnum roleEnum) {
+    public Users(Long id, String username, String password, String email, RoleEnum role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.roleEnum = roleEnum;
+        this.role = role;
     }
 
     public Long getId() {
@@ -75,11 +76,11 @@ public class Users {
     }
 
     public RoleEnum getRole() {
-        return roleEnum;
+        return role;
     }
 
     public void setRole(RoleEnum roleEnum) {
-        this.roleEnum = roleEnum;
+        this.role = roleEnum;
     }
 
     @Override
@@ -89,7 +90,7 @@ public class Users {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", roleEnum=" + roleEnum +
+                ", roleEnum=" + role +
                 '}';
     }
 
@@ -97,11 +98,11 @@ public class Users {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Users users = (Users) o;
-        return Objects.equals(id, users.id) && Objects.equals(username, users.username) && Objects.equals(password, users.password) && Objects.equals(email, users.email) && roleEnum == users.roleEnum;
+        return Objects.equals(id, users.id) && Objects.equals(username, users.username) && Objects.equals(password, users.password) && Objects.equals(email, users.email) && role == users.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, email, roleEnum);
+        return Objects.hash(id, username, password, email, role);
     }
 }

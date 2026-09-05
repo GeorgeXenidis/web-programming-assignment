@@ -19,6 +19,7 @@ public class Tickets {
     private String title;
 
     @Column(name = "t_type")
+    @Enumerated(EnumType.STRING)
     private TicketTypeEnum ticketType;
 
     public Tickets() {
