@@ -4,6 +4,7 @@ public enum RoleEnum {
 
     ADMIN,
     TECHNICIAN,
-    SIMPLE_USER
+    SIMPLE_USER,
+    NOT_ASSIGNED
 
 }
