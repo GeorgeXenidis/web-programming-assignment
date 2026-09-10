@@ -1,25 +1,23 @@
 package com.unipi.e16095_assignment.services;
 
-import com.unipi.e16095_assignment.dtos.RegisterUserDto;
-import com.unipi.e16095_assignment.entities.Users;
-import com.unipi.e16095_assignment.enums.RoleEnum;
-import com.unipi.e16095_assignment.repositories.UserRepository;
+import com.unipi.e16095_assignment.dtos.RegistrationDto;
+import com.unipi.e16095_assignment.entities.Registrations;
+import com.unipi.e16095_assignment.repositories.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.unipi.e16095_assignment.mappers.UserMapper.responseDtoToUserEntityMapper;
+import static com.unipi.e16095_assignment.mappers.RegistrationMapper.registrationDtoToToEntity;
 
 @Service
 public class RegisterService {
 
     @Autowired
-    private UserRepository userRepository;
+    private RegistrationRepository registrationRepository;
 
-    public void registerUser(RegisterUserDto registerUserDto) {
-        Users userToSave = responseDtoToUserEntityMapper(registerUserDto);
-        userToSave.setRole(RoleEnum.NOT_ASSIGNED);
+    public void registerUser(RegistrationDto registrationDto) {
+        Registrations registrationToSave = registrationDtoToToEntity(registrationDto);
 
-        userRepository.save(userToSave);
+        registrationRepository.save(registrationToSave);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.unipi.e16095_assignment.controllers;
 
-import com.unipi.e16095_assignment.dtos.RegisterUserDto;
+import com.unipi.e16095_assignment.dtos.RegistrationDto;
 import com.unipi.e16095_assignment.services.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,8 @@ public class RegisterController {
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<String> register(@ModelAttribute RegisterUserDto registerUserDto) {
-        registerService.registerUser(registerUserDto);
+    public ResponseEntity<String> register(@ModelAttribute RegistrationDto registrationDto) {
+        registerService.registerUser(registrationDto);
 
         return new ResponseEntity<>(
                 "Thank you for your registration!",

@@ -3,16 +3,16 @@ package com.unipi.e16095_assignment.dtos;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class RegisterUserDto implements Serializable {
+public class RegistrationDto implements Serializable {
 
     private String username;
     private String password;
     private String email;
 
-    public RegisterUserDto() {
+    public RegistrationDto() {
     }
 
-    public RegisterUserDto(String username, String password, String email) {
+    public RegistrationDto(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -44,7 +44,7 @@ public class RegisterUserDto implements Serializable {
 
     @Override
     public String toString() {
-        return "RegisterUserDto{" +
+        return "RegistrationDto{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -54,7 +54,7 @@ public class RegisterUserDto implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        RegisterUserDto that = (RegisterUserDto) o;
+        RegistrationDto that = (RegistrationDto) o;
         return Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(email, that.email);
     }
 
