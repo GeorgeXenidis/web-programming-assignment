@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Did not find the role of the user</title>
+    <title>Error Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,6 +59,6 @@
     </style>
 </head>
 <body>
-
+    <h1 th:text="${errorMessage}">A descriptive error message</h1>
 </body>
 </html>
