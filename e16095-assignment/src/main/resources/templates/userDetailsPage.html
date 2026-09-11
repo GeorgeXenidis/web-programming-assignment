@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users - Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .user-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease;
+            max-height: 150px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .user-info .username {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #222;
+        }
+        .user-info .email {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .user-info .role-badge {
+            display: inline-block;
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>User Details</h2>
+
+    <div th:value="${userDto}" th:id="'user-card-' + ${userDto.id}" class="user-card">
+        <div class="user-info">
+            <span class="username" th:text="${userDto.username}">johndoe</span>
+            <span class="email" th:text="${userDto.email}">john@example.com</span>
+            <span class="role-badge" th:text="'Role: ' + ${userDto.role}">Role: NOT_ASSIGNED</span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

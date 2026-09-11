@@ -2,14 +2,15 @@ package com.unipi.e16095_assignment.services;
 
 import com.unipi.e16095_assignment.dtos.UserDto;
 import com.unipi.e16095_assignment.entities.Users;
+import com.unipi.e16095_assignment.mappers.UserMapper;
 import com.unipi.e16095_assignment.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.unipi.e16095_assignment.mappers.UserMapper.dtoToEntityUserMapper;
-import static com.unipi.e16095_assignment.mappers.UserMapper.entityToDtoUserMapper;
 
 @Service
 public class UserService {
@@ -24,10 +25,19 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-        List<UserDto> allUsersList = userRepository.findAll()
+        return userRepository.findAll()
                 .stream()
-                .map(userEntity -> entityToDtoUserMapper())
+                .map(UserMapper::entityToDtoUserMapper)
                 .toList();
+    }
+
+    public UserDto findUserById(Long id) {
+        Optional<Users> optionalUser = userRepository.findById(id);
+        return optionalUser.map(UserMapper::entityToDtoUserMapper).orElseGet(UserDto::new);
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 
 }

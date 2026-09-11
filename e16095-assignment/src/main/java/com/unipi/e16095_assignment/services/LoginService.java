@@ -36,8 +36,8 @@ public class LoginService {
     public ModelAndView constructModelForResponse(UserDto userDto) {
         ModelAndView modelAndView = new ModelAndView();
 
-        RoleEnum userRole = userDto.getRole();
-        if(userRole == null) {
+        RoleEnum userRole = RoleEnum.valueOf(userDto.getRole());
+        if(userRole.toString().isEmpty()) {
             modelAndView.setViewName("errorPage");
             modelAndView.addObject("errorMessage", "User role not found...");
 
