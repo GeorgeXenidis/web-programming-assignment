@@ -12,9 +12,21 @@ public class RegistrationMapper {
         registrationEntity.setUsername(registrationDto.getUsername());
         registrationEntity.setPassword(registrationDto.getPassword());
         registrationEntity.setEmail(registrationDto.getEmail());
-        registrationEntity.setRole(RoleEnum.NOT_ASSIGNED);
+        registrationEntity.setRole(RoleEnum.valueOf(registrationDto.getRole()));
 
         return registrationEntity;
+    }
+
+    public static RegistrationDto RegistrationEntityToDto(Registrations registrationEntity) {
+        RegistrationDto registrationDto = new RegistrationDto();
+
+        registrationDto.setId(registrationEntity.getId());
+        registrationDto.setUsername(registrationEntity.getUsername());
+        registrationDto.setPassword("");
+        registrationDto.setEmail(registrationEntity.getEmail());
+        registrationDto.setRole(registrationEntity.getRole().toString());
+
+        return registrationDto;
     }
 
 }
