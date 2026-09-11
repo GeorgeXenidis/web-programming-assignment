@@ -1,7 +1,7 @@
 package com.unipi.e16095_assignment.controllers;
 
 import com.unipi.e16095_assignment.dtos.LoginRequestDto;
-import com.unipi.e16095_assignment.dtos.LoginResponseDto;
+import com.unipi.e16095_assignment.dtos.UserDto;
 import com.unipi.e16095_assignment.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +22,9 @@ public class LoginController {
 
     @PostMapping({"", "/"})
     public ModelAndView performLoginAction(@ModelAttribute LoginRequestDto loginRequestDto) {
-        LoginResponseDto loginResponseDto = loginService.performLoginAction(loginRequestDto);
+        UserDto userDto = loginService.performLoginAction(loginRequestDto);
 
-        return loginService.constructModelForResponse(loginResponseDto);
+        return loginService.constructModelForResponse(userDto);
     }
 
 }

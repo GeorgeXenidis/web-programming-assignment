@@ -6,7 +6,10 @@ import com.unipi.e16095_assignment.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.unipi.e16095_assignment.mappers.UserMapper.responseDtoToUserEntityMapper;
+import java.util.List;
+
+import static com.unipi.e16095_assignment.mappers.UserMapper.dtoToEntityUserMapper;
+import static com.unipi.e16095_assignment.mappers.UserMapper.entityToDtoUserMapper;
 
 @Service
 public class UserService {
@@ -15,9 +18,16 @@ public class UserService {
     private UserRepository userRepository;
 
     public void saveUser(UserDto userDto) {
-        Users userToSave = responseDtoToUserEntityMapper(userDto);
+        Users userToSave = dtoToEntityUserMapper(userDto);
 
         userRepository.save(userToSave);
+    }
+
+    public List<UserDto> getAllUsers() {
+        List<UserDto> allUsersList = userRepository.findAll()
+                .stream()
+                .map(userEntity -> entityToDtoUserMapper())
+                .toList();
     }
 
 }
