@@ -10,16 +10,18 @@ public class UserDto implements Serializable {
     private String password;
     private String email;
     private String role;
+    private Boolean isAllowed;
 
     public UserDto() {
     }
 
-    public UserDto(Long id, String username, String password, String email, String role) {
+    public UserDto(Long id, String username, String password, String email, String role, Boolean isAllowed) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.isAllowed = isAllowed;
     }
 
     public Long getId() {
@@ -62,6 +64,14 @@ public class UserDto implements Serializable {
         this.role = role;
     }
 
+    public Boolean isAllowed() {
+        return isAllowed;
+    }
+
+    public void setAllowed(Boolean allowed) {
+        isAllowed = allowed;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +
@@ -70,18 +80,19 @@ public class UserDto implements Serializable {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
+                ", isAllowed=" + isAllowed +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        UserDto that = (UserDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(email, that.email) && Objects.equals(role, that.role);
+        UserDto userDto = (UserDto) o;
+        return Objects.equals(id, userDto.id) && Objects.equals(username, userDto.username) && Objects.equals(password, userDto.password) && Objects.equals(email, userDto.email) && Objects.equals(role, userDto.role) && Objects.equals(isAllowed, userDto.isAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, email, role);
+        return Objects.hash(id, username, password, email, role, isAllowed);
     }
 }
