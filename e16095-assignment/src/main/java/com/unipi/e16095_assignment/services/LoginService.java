@@ -50,7 +50,7 @@ public class LoginService {
             case TECHNICIAN -> {
                 modelAndView.setViewName("technicianMainPage");
             }
-            case SIMPLE_USER -> {
+            case USER -> {
                 modelAndView.setViewName("simpleUserMainPage");
             }
             default -> {
