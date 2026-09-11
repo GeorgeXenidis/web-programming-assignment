@@ -1,7 +1,6 @@
 package com.unipi.e16095_assignment.controllers;
 
-import com.unipi.e16095_assignment.dtos.RegistrationDto;
-import com.unipi.e16095_assignment.repositories.UserRepository;
+import com.unipi.e16095_assignment.dtos.UserDto;
 import com.unipi.e16095_assignment.services.RegistrationService;
 import com.unipi.e16095_assignment.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,8 @@ public class RegisterController {
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<String> register(@ModelAttribute RegistrationDto registrationDto) {
-        registrationService.registerUser(registrationDto);
+    public ResponseEntity<String> register(@ModelAttribute UserDto userDto) {
+        registrationService.registerUser(userDto);
 
         return new ResponseEntity<>(
                 "Thank you for your registration!",
@@ -41,7 +40,7 @@ public class RegisterController {
     public ModelAndView getAllPendingRegistrations() {
         ModelAndView modelAndView = new ModelAndView("pendingRegistrations");
 
-        List<RegistrationDto> allPendingRegistrationsList = registrationService.getAllPendingRegistrations();
+        List<UserDto> allPendingRegistrationsList = registrationService.getAllPendingRegistrations();
         modelAndView.addObject("allPendingRegistrationsList", allPendingRegistrationsList);
 
         return modelAndView;
@@ -49,13 +48,13 @@ public class RegisterController {
 
     @PostMapping({"/approvals", "/approvals/"})
     @ResponseBody
-    public ModelAndView handleRegistrationApproval(@RequestBody RegistrationDto registrationDto,
+    public ModelAndView handleRegistrationApproval(@RequestBody UserDto userDto,
                                                    @RequestParam("action") String action) {
         ModelAndView modelAndView = new ModelAndView("pendingRegistrations");
 
-        boolean isRegistrationApproved = registrationService.handleApproval(registrationDto.getId(), action);
+        boolean isRegistrationApproved = registrationService.handleApproval(userDto.getId(), action);
         if (isRegistrationApproved) {
-            userService.saveUser(registrationDto);
+            userService.saveUser(userDto);
         }
         modelAndView.addObject("isRegistrationApproved", isRegistrationApproved);
 

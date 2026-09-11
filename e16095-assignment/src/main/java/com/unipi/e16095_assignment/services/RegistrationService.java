@@ -1,6 +1,6 @@
 package com.unipi.e16095_assignment.services;
 
-import com.unipi.e16095_assignment.dtos.RegistrationDto;
+import com.unipi.e16095_assignment.dtos.UserDto;
 import com.unipi.e16095_assignment.entities.Registrations;
 import com.unipi.e16095_assignment.mappers.RegistrationMapper;
 import com.unipi.e16095_assignment.repositories.RegistrationRepository;
@@ -18,13 +18,13 @@ public class RegistrationService {
     @Autowired
     private RegistrationRepository registrationRepository;
 
-    public void registerUser(RegistrationDto registrationDto) {
-        Registrations registrationToSave = registrationDtoToToEntity(registrationDto);
+    public void registerUser(UserDto userDto) {
+        Registrations registrationToSave = registrationDtoToToEntity(userDto);
 
         registrationRepository.save(registrationToSave);
     }
 
-    public List<RegistrationDto> getAllPendingRegistrations() {
+    public List<UserDto> getAllPendingRegistrations() {
         return registrationRepository.findAll()
                 .stream()
                 .map(RegistrationMapper::RegistrationEntityToDto)
@@ -37,14 +37,14 @@ public class RegistrationService {
         return action.equals("approve");
     }
 
-    public RegistrationDto getRegistrationDtoById(Long id) {
+    public UserDto getRegistrationDtoById(Long id) {
         Optional<Registrations> optionalRegistration = registrationRepository.findById(id);
         if (optionalRegistration.isEmpty()) {
-            return new RegistrationDto(null, null, null, null, null);
+            return new UserDto(null, null, null, null, null);
         }
 
         Registrations registration = optionalRegistration.get();
-        return new RegistrationDto(null, registration.getUsername(), "", registration.getEmail(), null);
+        return new UserDto(null, registration.getUsername(), "", registration.getEmail(), null);
     }
 
 }

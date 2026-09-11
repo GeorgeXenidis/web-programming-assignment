@@ -1,32 +1,32 @@
 package com.unipi.e16095_assignment.mappers;
 
-import com.unipi.e16095_assignment.dtos.RegistrationDto;
+import com.unipi.e16095_assignment.dtos.UserDto;
 import com.unipi.e16095_assignment.entities.Registrations;
 import com.unipi.e16095_assignment.enums.RoleEnum;
 
 public class RegistrationMapper {
 
-    public static Registrations registrationDtoToToEntity(RegistrationDto registrationDto) {
+    public static Registrations registrationDtoToToEntity(UserDto userDto) {
         Registrations registrationEntity = new Registrations();
 
-        registrationEntity.setUsername(registrationDto.getUsername());
-        registrationEntity.setPassword(registrationDto.getPassword());
-        registrationEntity.setEmail(registrationDto.getEmail());
-        registrationEntity.setRole(RoleEnum.valueOf(registrationDto.getRole()));
+        registrationEntity.setUsername(userDto.getUsername());
+        registrationEntity.setPassword(userDto.getPassword());
+        registrationEntity.setEmail(userDto.getEmail());
+        registrationEntity.setRole(RoleEnum.valueOf(userDto.getRole()));
 
         return registrationEntity;
     }
 
-    public static RegistrationDto RegistrationEntityToDto(Registrations registrationEntity) {
-        RegistrationDto registrationDto = new RegistrationDto();
+    public static UserDto RegistrationEntityToDto(Registrations registrationEntity) {
+        UserDto userDto = new UserDto();
 
-        registrationDto.setId(registrationEntity.getId());
-        registrationDto.setUsername(registrationEntity.getUsername());
-        registrationDto.setPassword("");
-        registrationDto.setEmail(registrationEntity.getEmail());
-        registrationDto.setRole(registrationEntity.getRole().toString());
+        userDto.setId(registrationEntity.getId());
+        userDto.setUsername(registrationEntity.getUsername());
+        userDto.setPassword("");
+        userDto.setEmail(registrationEntity.getEmail());
+        userDto.setRole(registrationEntity.getRole().toString());
 
-        return registrationDto;
+        return userDto;
     }
 
 }
