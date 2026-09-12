@@ -37,6 +37,16 @@ public class AdminController {
         return modelAndView;
     }
 
+    @PostMapping({"/userDetails/updateUser", "/userDetails/updateUser/"})
+    public ModelAndView updateUser(@RequestBody UserDto userDto) {
+        ModelAndView modelAndView = new ModelAndView("userDetailsPage");
+
+        UserDto updatedUserDto = userService.updateUser(userDto);
+        modelAndView.addObject("userDto", updatedUserDto);
+
+        return modelAndView;
+    }
+
     @PostMapping("/userDetails/delete")
     public ModelAndView deleteUser(@RequestParam("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("allUsersPage");
