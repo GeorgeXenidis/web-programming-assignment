@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets Category Management - Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .user-card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 15px;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-control {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: background-color 0.2s;
+        }
+        .btn-edit {
+            background-color: #007bff;
+        }
+        .btn-edit:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>User Details</h2>
+
+    <div th:id="'user-card-' + ${ticketDto.id}" class="user-card">
+        <form id="editUserForm" class="user-info">
+            <!-- Hidden field for original User ID -->
+            <input type="hidden" id="userId" th:value="${ticketDto.id}" />
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" th:value="${ticketDto.username}"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" id="password" class="form-control" th:value="${ticketDto.password}"/>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" th:value="${ticketDto.email}"/>
+            </div>
+
+            <div class="register-form-group">
+                <label for="role">Role</label>
+                <select id="role" name="role">
+                    <option value="" disabled selected>Select a role</option>
+                    <option value="USER">User</option>
+                    <option value="TECHNICIAN">Technician</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </div>
+
+            <div class="actions">
+                <button type="button" class="btn btn-edit" onclick="updateUser()">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    async function updateUser() {
+        const userId = document.getElementById('userId').value;
+
+        // Construct the updated ticketDto object from inputs
+        const updatedticketDto = {
+            id: userId,
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+            email: document.getElementById('email').value,
+            role: document.getElementById('role').value
+        };
+
+        // Option 1: Append ID as a query parameter
+        const url = `/api/admin/userDetails/updateUser/?id=${userId}`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedticketDto)
+            });
+
+            if (response.ok) {
+                alert('User updated successfully!');
+            } else {
+                alert('Failed to update user. Please check your inputs.');
+            }
+        } catch (error) {
+            console.error('Error updating user:', error);
+            alert('An error occurred while contacting the server.');
+        }
+    }
+</script>
+
+</body>
+</html>

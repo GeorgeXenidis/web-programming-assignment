@@ -1,10 +1,11 @@
 package com.unipi.e16095_assignment.controllers;
 
+import com.unipi.e16095_assignment.dtos.TicketDto;
 import com.unipi.e16095_assignment.dtos.UserDto;
+import com.unipi.e16095_assignment.services.TicketService;
 import com.unipi.e16095_assignment.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,6 +17,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TicketService ticketService;
 
     @GetMapping({"/getAllUsers", "/getAllUsers/"})
     public ModelAndView getAllUsers() {
@@ -33,6 +37,16 @@ public class AdminController {
 
         UserDto userDto = userService.findUserById(id);
         modelAndView.addObject("userDto", userDto);
+
+        return modelAndView;
+    }
+
+    @GetMapping({"/tickets/all", "/tickets/all/"})
+    public ModelAndView getAllTickets() {
+        ModelAndView modelAndView = new ModelAndView("allTicketsPage");
+
+        List<TicketDto> allTicketsList = ticketService.getAllTickets();
+        modelAndView.addObject("allTicketsList", allTicketsList);
 
         return modelAndView;
     }
