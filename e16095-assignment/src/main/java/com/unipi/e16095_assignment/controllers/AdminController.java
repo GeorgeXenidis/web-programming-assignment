@@ -41,6 +41,16 @@ public class AdminController {
         return modelAndView;
     }
 
+    @PostMapping({"/userDetails/updateUser", "/userDetails/updateUser/"})
+    public ModelAndView updateUser(@RequestBody UserDto userDto) {
+        ModelAndView modelAndView = new ModelAndView("userDetailsPage");
+
+        UserDto updatedUserDto = userService.updateUser(userDto);
+        modelAndView.addObject("userDto", updatedUserDto);
+
+        return modelAndView;
+    }
+
     @GetMapping({"/tickets/all", "/tickets/all/"})
     public ModelAndView getAllTickets() {
         ModelAndView modelAndView = new ModelAndView("allTicketsPage");
@@ -51,12 +61,22 @@ public class AdminController {
         return modelAndView;
     }
 
-    @PostMapping({"/userDetails/updateUser", "/userDetails/updateUser/"})
-    public ModelAndView updateUser(@RequestBody UserDto userDto) {
-        ModelAndView modelAndView = new ModelAndView("userDetailsPage");
+    @GetMapping({"/ticketDetails/{id}", "/ticketDetails/{id}/"})
+    public ModelAndView getTicketDetails(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("ticketDetailsPage");
 
-        UserDto updatedUserDto = userService.updateUser(userDto);
-        modelAndView.addObject("userDto", updatedUserDto);
+        TicketDto ticketDto = ticketService.findTicketById(id);
+        modelAndView.addObject("ticketDto", ticketDto);
+
+        return modelAndView;
+    }
+
+    @PostMapping({"/ticketDetails/updateTicket", "/ticketDetails/updateTicket"})
+    public ModelAndView updateTicket(@RequestBody TicketDto ticketDto) {
+        ModelAndView modelAndView = new ModelAndView("ticketDetailsPage");
+
+        TicketDto updatedTicketDto = ticketService.updateTicket(ticketDto);
+        modelAndView.addObject("ticketDto", updatedTicketDto);
 
         return modelAndView;
     }

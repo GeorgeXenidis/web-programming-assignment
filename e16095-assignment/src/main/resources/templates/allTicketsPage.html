@@ -62,7 +62,7 @@
             font-size: 1.1em;
             color: #222;
         }
-        .ticket-info .type {
+        .ticket-info .ticket-type {
             font-size: 0.9em;
             color: #666;
         }
@@ -112,7 +112,7 @@
     <div th:each="ticket : ${allTicketsList}" th:id="'ticket-card-' + ${ticket.id}" class="ticket-card">
         <div class="ticket-info">
             <span class="title" th:text="${ticket.title}">exampleTicketTitle</span>
-            <span class="type" th:text="'Type: ' + ${ticket.ticketType}">Type: exampleTicketType</span>
+            <span class="ticket-type" th:text="'Type: ' + ${ticket.ticketType}">Type: exampleTicketType</span>
         </div>
         <div class="actions">
             <!-- Direct page navigation to details/edit view -->
