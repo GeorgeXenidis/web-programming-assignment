@@ -51,6 +51,18 @@ public class AdminController {
         return modelAndView;
     }
 
+    @PostMapping("/userDetails/delete")
+    public ModelAndView deleteUser(@RequestParam("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("allUsersPage");
+
+        userService.deleteUserById(id);
+
+        List<UserDto> allUsersList = userService.getAllUsers();
+        modelAndView.addObject("allUsersList", allUsersList);
+
+        return modelAndView;
+    }
+
     @GetMapping({"/tickets/all", "/tickets/all/"})
     public ModelAndView getAllTickets() {
         ModelAndView modelAndView = new ModelAndView("allTicketsPage");
@@ -77,18 +89,6 @@ public class AdminController {
 
         TicketDto updatedTicketDto = ticketService.updateTicket(ticketDto);
         modelAndView.addObject("ticketDto", updatedTicketDto);
-
-        return modelAndView;
-    }
-
-    @PostMapping("/userDetails/delete")
-    public ModelAndView deleteUser(@RequestParam("id") Long id) {
-        ModelAndView modelAndView = new ModelAndView("allUsersPage");
-
-        userService.deleteUserById(id);
-
-        List<UserDto> allUsersList = userService.getAllUsers();
-        modelAndView.addObject("allUsersList", allUsersList);
 
         return modelAndView;
     }

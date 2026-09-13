@@ -11,6 +11,9 @@ public class TicketMapper {
         ticketDto.setId(ticketEntity.getId());
         ticketDto.setTitle(ticketEntity.getTitle());
         ticketDto.setTicketType(ticketEntity.getTicketType().toString());
+        ticketDto.setAssigneeId(ticketEntity.getAssignee().getId());
+        ticketDto.setTicketStatus(ticketEntity.getTicketStatus().toString());
+        ticketDto.setComments(ticketEntity.getComments());
 
         return ticketDto;
     }

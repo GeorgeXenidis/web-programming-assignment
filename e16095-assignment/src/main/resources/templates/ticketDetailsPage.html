@@ -76,7 +76,7 @@
 <div class="container">
     <h2>Ticket Details</h2>
 
-    <div th:id="'ticket-card-' + ${ticketDto.id}" class="ticket-card">
+    <div th:id="'ticket-card' + ${ticketDto.id}" class="ticket-card">
         <form id="editTicketForm" class="ticket-info">
             <!-- Hidden field for original Ticket ID -->
             <input type="hidden" id="ticketId" th:value="${ticketDto.id}" />
@@ -86,7 +86,7 @@
                 <span id="title" class="form-control" th:value="${ticketDto.title}">Example Ticket Title</span>
             </div>
 
-            <div class="register-form-group">
+            <div class="form-group">
                 <label for="ticketType">Ticket Type</label>
                 <select id="ticketType" name="ticketType">
                     <option value="" disabled selected>Select type of ticket</option>
@@ -95,6 +95,28 @@
                     <option value="SYSTEM_ACCESS">SYSTEM_ACCESS</option>
                     <option value="NET_ACCESS">NET_ACCESS</option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="assigneeId"></label>
+                <span>Assignee ID: 1</span>
+                <input id="assigneeId" class="form-control" th:value="${ticketDto.assigneeId}" />
+            </div>
+
+            <div class="form-group">
+                <label for="ticketStatus"></label>
+                <select id="ticketStatus" name="ticketStatus">
+                    <option value="" disabled selected>Select status of ticket</option>
+                    <option value="NOT_ASSIGNED">NOT_ASSIGNED</option>
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="RESOLVED">RESOLVED</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="comments"></label>
+                <span>Comments</span>
+                <input id="comments" class="form-control" th:value="${ticketDto.comments}" />
             </div>
 
             <div class="actions">
@@ -113,6 +135,9 @@
             id: ticketId,
             title: document.getElementById('title').value,
             ticketType: document.getElementById('ticketType').value,
+            assigneeId: document.getElementById('assigneeId').value,
+            ticketStatus: document.getElementById('ticketStatus').value,
+            comments: document.getElementById('comments').value
         };
 
         // Option 1: Append ID as a query parameter

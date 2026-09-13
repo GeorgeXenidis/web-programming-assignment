@@ -66,11 +66,17 @@
             font-size: 0.9em;
             color: #666;
         }
-        .ticket-info .role-badge {
-            display: inline-block;
-            font-size: 0.8em;
-            color: #888;
-            margin-top: 4px;
+        .ticket-info .ticket-assignee {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .ticket-info .ticket-status {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .ticket-info .ticket-comments {
+            font-size: 0.9em;
+            color: #666;
         }
         .actions {
             display: flex;
@@ -113,6 +119,9 @@
         <div class="ticket-info">
             <span class="title" th:text="${ticket.title}">exampleTicketTitle</span>
             <span class="ticket-type" th:text="'Type: ' + ${ticket.ticketType}">Type: exampleTicketType</span>
+            <span class="ticket-assignee" th:text="'Assignee ID: ' + ${ticket.assigneeId}">Assignee ID: 1</span>
+            <span class="ticket-status" th:text="'Ticket Status: ' + ${ticket.ticketStatus}">Ticket Status: NOT_ASSIGNED</span>
+            <span class="ticket-comments" th:text="'Comments: ' + ${ticket.comments}">Comments: A descriptive example of how to resolve the ticket...</span>
         </div>
         <div class="actions">
             <!-- Direct page navigation to details/edit view -->
