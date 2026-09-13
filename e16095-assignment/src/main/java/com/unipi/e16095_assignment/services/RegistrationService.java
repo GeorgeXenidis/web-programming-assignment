@@ -40,11 +40,11 @@ public class RegistrationService {
     public UserDto getRegistrationDtoById(Long id) {
         Optional<Registrations> optionalRegistration = registrationRepository.findById(id);
         if (optionalRegistration.isEmpty()) {
-            return new UserDto(null, null, "", null, null, false);
+            return new UserDto(null, null, "", null, null);
         }
 
         Registrations registration = optionalRegistration.get();
-        return new UserDto(null, registration.getUsername(), "", registration.getEmail(), registration.getRole().toString(), null);
+        return new UserDto(null, registration.getUsername(), "", registration.getEmail(), registration.getRole().toString());
     }
 
 }

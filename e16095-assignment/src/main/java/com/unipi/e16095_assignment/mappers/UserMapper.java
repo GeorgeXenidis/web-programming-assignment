@@ -11,9 +11,9 @@ public class UserMapper {
 
         userDto.setId(userEntity.getId());
         userDto.setUsername(userEntity.getUsername());
+        userDto.setPassword(userEntity.getPassword());
         userDto.setEmail(userEntity.getEmail());
         userDto.setRole(userEntity.getRole().toString());
-        userDto.setAllowed(true);
 
         return userDto;
     }
