@@ -1,7 +1,6 @@
 package com.unipi.e16095_assignment.services;
 
 import com.unipi.e16095_assignment.dtos.UserDto;
-import com.unipi.e16095_assignment.enums.RoleEnum;
 import com.unipi.e16095_assignment.repositories.UserRepository;
 import com.unipi.e16095_assignment.dtos.LoginRequestDto;
 import com.unipi.e16095_assignment.entities.Users;
@@ -37,9 +36,7 @@ public class LoginService {
     public ModelAndView constructModelForResponse(UserDto userDto, HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView();
 
-        RoleEnum userRole = RoleEnum.valueOf(userDto.getRole());
-
-        if (userDto.getId() == null) {
+        if (userDto.getId() == null) {// User's ID will be null if user gave invalid credentials
             httpSession.setAttribute("loggedInUser", null);
 
             modelAndView.setViewName("errorPage");
@@ -48,34 +45,10 @@ public class LoginService {
             return modelAndView;
         }
 
-//        if(userDto.getRole() == null || userRole.toString().isEmpty()) {
-//            modelAndView.setViewName("errorPage");
-//            modelAndView.addObject("errorMessage", "User role not found...");
-//
-//            return modelAndView;
-//        }
-        switch (userRole) {
-            case ADMIN -> {
-                modelAndView.setViewName("adminMainPage");
-            }
-            case TECHNICIAN -> {
-                modelAndView.setViewName("technicianMainPage");
-            }
-            case USER -> {
-                modelAndView.setViewName("simpleUserMainPage");
-            }
-            default -> {
-                httpSession.setAttribute("loggedInUser", null);
-
-                modelAndView.setViewName("errorPage");
-                modelAndView.addObject("errorMessage", "Could not resolve user's role... Unable to login!");
-            }
-        }
-
         httpSession.setAttribute("loggedInUser", userDto);
         httpSession.setAttribute("userRole", userDto.getRole());
 
-//        Suppose that announcements will represent something like mainPage of sorts...
+//        Suppose that announcements will represent something like main page of sorts...
         modelAndView.setViewName("redirect:/api/level-user/announcements/all/");
 
         return modelAndView;
