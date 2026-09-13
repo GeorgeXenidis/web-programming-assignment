@@ -38,4 +38,12 @@ public class LoginController {
         return "redirect:/api/login?logout=true";
     }
 
+    @GetMapping("/accessDenied")
+    public ModelAndView accessDenied() {
+        ModelAndView modelAndView = new ModelAndView("errorPage");
+        modelAndView.addObject("errorMessage", "Access denied");
+
+        return modelAndView;
+    }
+
 }

@@ -118,7 +118,7 @@
         }
 
         const card = document.getElementById(`announcement-card-${announcementId}`);
-        const url = `/api/admin/announcements/delete/` + announcementId;
+        const url = `/api/level-admin/announcements/delete/` + announcementId;
 
         try {
             const response = await fetch(url, {

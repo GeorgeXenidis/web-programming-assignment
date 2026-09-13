@@ -125,7 +125,7 @@
         </div>
         <div class="actions">
             <!-- Direct page navigation to details/edit view -->
-            <a th:href="@{/api/admin/ticketDetails/{id}(id=${ticket.id})}" class="btn btn-edit">Edit</a>
+            <a th:href="@{/api/level-admin/ticketDetails/{id}(id=${ticket.id})}" class="btn btn-edit">Edit</a>
 
             <!-- Triggers asynchronous deletion and smooth fade-out -->
             <button type="button"
@@ -142,7 +142,7 @@
         }
 
         const card = document.getElementById(`ticket-card-${ticketId}`);
-        const url = `/api/admin/ticketDetails/delete`;
+        const url = `/api/level-admin/ticketDetails/delete`;
 
         try {
             const response = await fetch(url, {

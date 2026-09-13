@@ -73,9 +73,10 @@ public class LoginService {
         }
 
         httpSession.setAttribute("loggedInUser", userDto);
+        httpSession.setAttribute("userRole", userDto.getRole());
 
 //        Suppose that announcements will represent something like mainPage of sorts...
-        modelAndView.setViewName("redirect:/api/admin/announcements/all/");
+        modelAndView.setViewName("redirect:/api/level-user/announcements/all/");
 
         return modelAndView;
     }
