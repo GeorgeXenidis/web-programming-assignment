@@ -3,7 +3,6 @@ package com.unipi.e16095_assignment.controllers;
 import com.unipi.e16095_assignment.dtos.AnnouncementDto;
 import com.unipi.e16095_assignment.dtos.TicketDto;
 import com.unipi.e16095_assignment.dtos.UserDto;
-import com.unipi.e16095_assignment.entities.Announcements;
 import com.unipi.e16095_assignment.services.AnnouncementService;
 import com.unipi.e16095_assignment.services.TicketService;
 import com.unipi.e16095_assignment.services.UserService;
@@ -105,6 +104,15 @@ public class AdminController {
 
         List<AnnouncementDto> allAnnouncementsList = announcementService.getAllAnnouncements();
         modelAndView.addObject("allAnnouncementsList", allAnnouncementsList);
+
+        return modelAndView;
+    }
+
+    @PostMapping({"/announcements/delete/{id}", "/announcements/delete/{id}/"})
+    public ModelAndView deleteAnnouncement(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("allAnnouncementsPage");
+
+        announcementService.deleteAnnouncement(id);
 
         return modelAndView;
     }

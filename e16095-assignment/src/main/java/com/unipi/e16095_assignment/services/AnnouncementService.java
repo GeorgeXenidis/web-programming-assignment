@@ -22,4 +22,8 @@ public class AnnouncementService {
                 .toList();
     }
 
+    public void deleteAnnouncement(Long id) {
+        announcementRepository.deleteById(id);
+    }
+
 }
