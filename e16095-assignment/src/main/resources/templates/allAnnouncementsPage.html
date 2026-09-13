@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Announcements - Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .empty-message {
+            text-align: center;
+            color: #666;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .announcement-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease;
+            max-height: 150px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .announcement-card.fade-out {
+            opacity: 0;
+            transform: translateX(30px);
+            max-height: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border: none;
+        }
+        .announcement-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .announcement-info .title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #222;
+        }
+        .announcement-info .announcement-type {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Announcements List</h2>
+
+    <div id="empty-message" th:if="${#lists.isEmpty(allAnnouncementsList)}" class="empty-message">
+        No announcements at the current time.
+    </div>
+
+    <div th:each="announcement : ${allAnnouncementsList}" th:id="'announcement-card-' + ${announcement.id}" class="announcement-card">
+        <div class="announcement-info">
+            <span class="title" th:text="${announcement.title}">exampleAnnouncementTitle</span>
+            <span class="announcement-type" th:text="'Type: ' + ${announcement.content}">exampleAnnouncementContent</span>
+        </div>
+        <div class="actions">
+            <!-- Triggers asynchronous deletion and smooth fade-out -->
+            <button type="button"
+                    class="btn btn-delete"
+                    th:onclick="deleteAnnouncement([[${announcement.id}]])">Delete</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function deleteAnnouncement(announcementId) {
+        if (!confirm('Are you sure you want to delete this announcement?')) {
+            return;
+        }
+
+        const card = document.getElementById(`announcement-card-${announcementId}`);
+        const url = `/api/admin/announcementDetails/delete`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ id: announcementId })
+            });
+
+            if (response.ok) {
+                card.classList.add('fade-out');
+
+                setTimeout(() => {
+                    card.remove();
+
+                    const remainingCards = document.querySelectorAll('.announcement-card');
+                    if (remainingCards.length === 0) {
+                        showEmptyMessage();
+                    }
+                }, 500);
+            } else {
+                alert('Failed to delete announcement. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while contacting the server.');
+        }
+    }
+
+    function showEmptyMessage() {
+        let emptyMsg = document.getElementById('empty-message');
+        if (!emptyMsg) {
+            emptyMsg = document.createElement('div');
+            emptyMsg.id = 'empty-message';
+            emptyMsg.className = 'empty-message';
+            emptyMsg.innerText = 'No announcements at the current time.';
+            document.querySelector('.container').appendChild(emptyMsg);
+        }
+    }
+</script>
+
+</body>
+</html>

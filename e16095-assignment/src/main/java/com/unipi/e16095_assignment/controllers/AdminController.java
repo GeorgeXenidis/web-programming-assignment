@@ -1,7 +1,10 @@
 package com.unipi.e16095_assignment.controllers;
 
+import com.unipi.e16095_assignment.dtos.AnnouncementDto;
 import com.unipi.e16095_assignment.dtos.TicketDto;
 import com.unipi.e16095_assignment.dtos.UserDto;
+import com.unipi.e16095_assignment.entities.Announcements;
+import com.unipi.e16095_assignment.services.AnnouncementService;
 import com.unipi.e16095_assignment.services.TicketService;
 import com.unipi.e16095_assignment.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class AdminController {
 
     @Autowired
     private TicketService ticketService;
+
+    @Autowired
+    private AnnouncementService announcementService;
 
     @GetMapping({"/getAllUsers", "/getAllUsers/"})
     public ModelAndView getAllUsers() {
@@ -89,6 +95,16 @@ public class AdminController {
 
         TicketDto updatedTicketDto = ticketService.updateTicket(ticketDto);
         modelAndView.addObject("ticketDto", updatedTicketDto);
+
+        return modelAndView;
+    }
+
+    @GetMapping({"/announcements/all", "/announcements/all/"})
+    public ModelAndView getAllAnnouncements() {
+        ModelAndView modelAndView = new ModelAndView("allAnnouncementsPage");
+
+        List<AnnouncementDto> allAnnouncementsList = announcementService.getAllAnnouncements();
+        modelAndView.addObject("allAnnouncementsList", allAnnouncementsList);
 
         return modelAndView;
     }
