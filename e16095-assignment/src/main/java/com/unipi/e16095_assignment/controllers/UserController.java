@@ -98,14 +98,22 @@ public class UserController {
 
     @GetMapping({"/level-user/application/getAllOwned", "/level-user/application/getAllOwned/"})
     public ModelAndView getAllOwnedTickets(TicketDto ticketDto, HttpSession httpSession) {
-        ModelAndView modelAndView = new ModelAndView("allOwnedTicketsPage");
+        ModelAndView modelAndView = new ModelAndView();
 
         UserDto loggedInUser = (UserDto) httpSession.getAttribute("loggedInUser");
-        ticketDto.setSubmittingEntityId(loggedInUser.getId());
+        if (isRoleUser(loggedInUser)) {
+            ticketDto.setSubmittingEntityId(loggedInUser.getId());
 
-        List<TicketDto> allOwnedTicketsList = ticketService.getOwnedTickets(ticketDto);
+            List<TicketDto> allOwnedTicketsList = ticketService.getOwnedTickets(ticketDto);
 
-        modelAndView.addObject("allOwnedTicketsList", allOwnedTicketsList);
+            modelAndView.setViewName("allOwnedTicketsPage");
+            modelAndView.addObject("allOwnedTicketsList", allOwnedTicketsList);
+
+            return modelAndView;
+        }
+
+        modelAndView.setViewName("errorPage");
+        modelAndView.addObject("errorMessage", "This is a user-only action!");
 
         return modelAndView;
     }
