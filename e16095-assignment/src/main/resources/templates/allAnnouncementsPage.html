@@ -106,6 +106,7 @@
             <!-- Triggers asynchronous deletion and smooth fade-out -->
             <button type="button"
                     class="btn btn-delete"
+                    th:if="${session.userRole != null and #strings.equalsIgnoreCase(session.userRole, 'ADMIN')}"
                     th:onclick="deleteAnnouncement([[${announcement.id}]])">Delete</button>
         </div>
     </div>
