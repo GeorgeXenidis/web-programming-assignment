@@ -13,17 +13,19 @@ public class TicketDto implements Serializable {
     private Long assigneeId;
     private String ticketStatus;
     private String comments;
+    private Long submittingEntityId;
 
     public TicketDto() {
     }
 
-    public TicketDto(Long id, String title, String ticketType, Long assigneeId, String ticketStatus, String comments) {
+    public TicketDto(Long id, String title, String ticketType, Long assigneeId, String ticketStatus, String comments, Long submittingEntityId) {
         this.id = id;
         this.title = title;
         this.ticketType = ticketType;
         this.assigneeId = assigneeId;
         this.ticketStatus = ticketStatus;
         this.comments = comments;
+        this.submittingEntityId = submittingEntityId;
     }
 
     public Long getId() {
@@ -74,6 +76,14 @@ public class TicketDto implements Serializable {
         this.comments = comments;
     }
 
+    public Long getSubmittingEntityId() {
+        return submittingEntityId;
+    }
+
+    public void setSubmittingEntityId(Long submittingEntityId) {
+        this.submittingEntityId = submittingEntityId;
+    }
+
     @Override
     public String toString() {
         return "TicketDto{" +
@@ -83,6 +93,7 @@ public class TicketDto implements Serializable {
                 ", assigneeId=" + assigneeId +
                 ", ticketStatus='" + ticketStatus + '\'' +
                 ", comments='" + comments + '\'' +
+                ", submittingEntityId=" + submittingEntityId +
                 '}';
     }
 
@@ -90,11 +101,11 @@ public class TicketDto implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         TicketDto ticketDto = (TicketDto) o;
-        return Objects.equals(id, ticketDto.id) && Objects.equals(title, ticketDto.title) && Objects.equals(ticketType, ticketDto.ticketType) && Objects.equals(assigneeId, ticketDto.assigneeId) && Objects.equals(ticketStatus, ticketDto.ticketStatus) && Objects.equals(comments, ticketDto.comments);
+        return Objects.equals(id, ticketDto.id) && Objects.equals(title, ticketDto.title) && Objects.equals(ticketType, ticketDto.ticketType) && Objects.equals(assigneeId, ticketDto.assigneeId) && Objects.equals(ticketStatus, ticketDto.ticketStatus) && Objects.equals(comments, ticketDto.comments) && Objects.equals(submittingEntityId, ticketDto.submittingEntityId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, ticketType, assigneeId, ticketStatus, comments);
+        return Objects.hash(id, title, ticketType, assigneeId, ticketStatus, comments, submittingEntityId);
     }
 }

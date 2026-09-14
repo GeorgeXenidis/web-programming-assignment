@@ -40,7 +40,7 @@ public class TicketService {
     public TicketDto findTicketById(Long id) {
         Optional<Tickets> optionalTicket = ticketRepository.findById(id);
         if (optionalTicket.isEmpty()) {
-            return new TicketDto(id, "", "", null, "", "");
+            return new TicketDto(id, "", "", null, "", "", null);
         }
 
         return entityToDtoTicketMapper(optionalTicket.get());
@@ -59,9 +59,7 @@ public class TicketService {
     }
 
     public TicketDto saveNewTicket(TicketDto ticketDto) {
-        Tickets ticketToSave = dtoToEntityTicketMapper(ticketDto);
-
-        Tickets savedTicket = ticketRepository.save(ticketToSave);
+        Tickets savedTicket = constructAndSaveEntity(ticketDto);
 
         return entityToDtoTicketMapper(savedTicket);
     }
@@ -88,6 +86,16 @@ public class TicketService {
         }
 
         return existingTicket;
+    }
+
+    private Tickets constructAndSaveEntity(TicketDto ticketDto) {
+        Tickets ticketToSave = dtoToEntityTicketMapper(ticketDto);
+
+        Users submittingEntityUser = userRepository.findById(ticketDto.getSubmittingEntityId())
+                .orElse(null);
+        ticketToSave.setSubmittingEntity(submittingEntityUser);
+
+        return ticketRepository.save(ticketToSave);
     }
 
 }

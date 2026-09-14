@@ -24,7 +24,7 @@ public class Tickets {
     private TicketTypeEnum ticketType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "t_assignee", referencedColumnName = "u_id", nullable = true)
+    @JoinColumn(name = "t_assignee", referencedColumnName = "u_id", nullable = false)
     private Users assignee;
 
     @Column(name = "t_ticket_status",
@@ -36,16 +36,21 @@ public class Tickets {
             nullable = true)
     private String comments;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "t_submitting_entity", referencedColumnName = "u_id", nullable = true)
+    private Users submittingEntity;
+
     public Tickets() {
     }
 
-    public Tickets(Long id, String title, TicketTypeEnum ticketType, Users assignee, TicketStatusEnum ticketStatus, String comments) {
+    public Tickets(Long id, String title, TicketTypeEnum ticketType, Users assignee, TicketStatusEnum ticketStatus, String comments, Users submittingEntity) {
         this.id = id;
         this.title = title;
         this.ticketType = ticketType;
         this.assignee = assignee;
         this.ticketStatus = ticketStatus;
         this.comments = comments;
+        this.submittingEntity = submittingEntity;
     }
 
     public Long getId() {
@@ -96,6 +101,14 @@ public class Tickets {
         this.comments = comments;
     }
 
+    public Users getSubmittingEntity() {
+        return submittingEntity;
+    }
+
+    public void setSubmittingEntity(Users submittingEntity) {
+        this.submittingEntity = submittingEntity;
+    }
+
     @Override
     public String toString() {
         return "Tickets{" +
@@ -105,6 +118,7 @@ public class Tickets {
                 ", assignee=" + assignee +
                 ", ticketStatus=" + ticketStatus +
                 ", comments='" + comments + '\'' +
+                ", submittingEntity=" + submittingEntity +
                 '}';
     }
 
@@ -112,11 +126,11 @@ public class Tickets {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Tickets tickets = (Tickets) o;
-        return Objects.equals(id, tickets.id) && Objects.equals(title, tickets.title) && ticketType == tickets.ticketType && Objects.equals(assignee, tickets.assignee) && ticketStatus == tickets.ticketStatus && Objects.equals(comments, tickets.comments);
+        return Objects.equals(id, tickets.id) && Objects.equals(title, tickets.title) && ticketType == tickets.ticketType && Objects.equals(assignee, tickets.assignee) && ticketStatus == tickets.ticketStatus && Objects.equals(comments, tickets.comments) && Objects.equals(submittingEntity, tickets.submittingEntity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, ticketType, assignee, ticketStatus, comments);
+        return Objects.hash(id, title, ticketType, assignee, ticketStatus, comments, submittingEntity);
     }
 }

@@ -7,6 +7,7 @@ import com.unipi.e16095_assignment.services.TicketService;
 import com.unipi.e16095_assignment.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +70,7 @@ public class UserController {
     public ModelAndView getTicketFormPage() {
         ModelAndView modelAndView = new ModelAndView("newTicketFormPage");
 
-        modelAndView.addObject("ticketDto", new TicketDto(null, "", "", null, null, ""));
+        modelAndView.addObject("ticketDto", new TicketDto(null, "", "", null, null, "", null));
 
         return modelAndView;
     }
@@ -83,34 +84,19 @@ public class UserController {
 
             if (isRoleUser(loggedInUser)) {
                 ticketService.saveNewTicket(ticketDto);
+
+                return ResponseEntity.ok().build();
             }
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to submit ticket: " + e.getMessage());
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     private boolean isRoleUser(UserDto loggedInUser) {
         return loggedInUser.getRole().equals(RoleEnum.USER.toString());
-    }
-
-    private ModelAndView configureUserRole(TicketDto ticketDto, HttpSession httpSession) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        if (httpSession.getAttribute("user") != RoleEnum.USER.toString()) {
-            modelAndView.setViewName("errorPage");
-            modelAndView.addObject("errorMessage", "This operation is ONLY allowed by user roles!");
-
-            return modelAndView;
-        }
-
-        TicketDto savedTicketDto = ticketService.saveNewTicket(ticketDto);
-
-        modelAndView.setViewName("newTicketFormPage");
-
-        return modelAndView;
     }
 
 }
