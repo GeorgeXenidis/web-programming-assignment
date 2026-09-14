@@ -66,7 +66,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping({"/level-user/application/technicalSupport", "/level-user/application/technicalSupport/"})
+    @GetMapping({"/level-user/application/newTicketForm", "/level-user/application/newTicketForm/"})
     public ModelAndView getTicketFormPage() {
         ModelAndView modelAndView = new ModelAndView("newTicketFormPage");
 
@@ -75,14 +75,15 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping({"/level-user/application/technicalSupport", "/level-user/application/technicalSupport/"})
+    @PostMapping({"/level-user/application/newTicketForm", "/level-user/application/newTicketForm/"})
     @ResponseBody
-    public ResponseEntity<?> technicalSupportApplication(@RequestBody TicketDto ticketDto, HttpSession httpSession) {
+    public ResponseEntity<?> newTicketFormApplication(@RequestBody TicketDto ticketDto, HttpSession httpSession) {
         try {
             // Retrieve current logged-in user from session if needed
             UserDto loggedInUser = (UserDto) httpSession.getAttribute("loggedInUser");
 
             if (isRoleUser(loggedInUser)) {
+                ticketDto.setSubmittingEntityId(loggedInUser.getId());
                 ticketService.saveNewTicket(ticketDto);
 
                 return ResponseEntity.ok().build();
@@ -93,6 +94,20 @@ public class UserController {
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @GetMapping({"/level-user/application/getAllOwned", "/level-user/application/getAllOwned/"})
+    public ModelAndView getAllOwnedTickets(TicketDto ticketDto, HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView("allOwnedTicketsPage");
+
+        UserDto loggedInUser = (UserDto) httpSession.getAttribute("loggedInUser");
+        ticketDto.setSubmittingEntityId(loggedInUser.getId());
+
+        List<TicketDto> allOwnedTicketsList = ticketService.getOwnedTickets(ticketDto);
+
+        modelAndView.addObject("allOwnedTicketsList", allOwnedTicketsList);
+
+        return modelAndView;
     }
 
     private boolean isRoleUser(UserDto loggedInUser) {

@@ -116,7 +116,7 @@
             comments: document.getElementById('comments').value
         };
 
-        const url = `/api/level-user/application/technicalSupport`;
+        const url = `/api/level-user/application/newTicketForm`;
 
         try {
             const response = await fetch(url, {
@@ -129,7 +129,7 @@
 
             if (response.ok) {
                 alert('Ticket submitted successfully!');
-                window.location.href = '/api/level-user/application/technicalSupport'; // Reset or redirect after submit
+                window.location.href = '/api/level-user/application/newTicketForm'; // Reset or redirect after submit
             } else {
                 alert('Failed to submit ticket. Please check your inputs.');
             }

@@ -24,7 +24,7 @@ public class Tickets {
     private TicketTypeEnum ticketType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "t_assignee", referencedColumnName = "u_id", nullable = false)
+    @JoinColumn(name = "t_assignee", referencedColumnName = "u_id", nullable = true)
     private Users assignee;
 
     @Column(name = "t_ticket_status",

@@ -64,6 +64,13 @@ public class TicketService {
         return entityToDtoTicketMapper(savedTicket);
     }
 
+    public List<TicketDto> getOwnedTickets(TicketDto ticketDto) {
+        return ticketRepository.findTicketsBySubmittingEntityId(ticketDto.getSubmittingEntityId())
+                .stream()
+                .map(TicketMapper::entityToDtoTicketMapper)
+                .toList();
+    }
+
     private Tickets updateTicketInfo(Tickets existingTicket, TicketDto newTicketDto) {
 //        ID has not to be set as it is already present when fetched from DB
 
