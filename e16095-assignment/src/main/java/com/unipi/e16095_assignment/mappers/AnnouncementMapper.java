@@ -15,4 +15,13 @@ public class AnnouncementMapper {
         return announcementDto;
     }
 
+    public static Announcements dtoToEntityAnnouncementMapper(AnnouncementDto announcementDto) {
+        Announcements announcementEntity = new Announcements();
+
+        announcementEntity.setTitle(announcementDto.getTitle());
+        announcementEntity.setContent(announcementDto.getContent());
+
+        return announcementEntity;
+    }
+
 }
