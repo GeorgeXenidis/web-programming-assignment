@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static com.unipi.e16095_assignment.mappers.TicketMapper.dtoToEntityTicketMapper;
 import static com.unipi.e16095_assignment.mappers.TicketMapper.entityToDtoTicketMapper;
 
 @Service
@@ -52,6 +53,14 @@ public class TicketService {
         }
 
         Tickets ticketToSave = updateTicketInfo(existingTicket.get(), newTicketDto);
+        Tickets savedTicket = ticketRepository.save(ticketToSave);
+
+        return entityToDtoTicketMapper(savedTicket);
+    }
+
+    public TicketDto saveNewTicket(TicketDto ticketDto) {
+        Tickets ticketToSave = dtoToEntityTicketMapper(ticketDto);
+
         Tickets savedTicket = ticketRepository.save(ticketToSave);
 
         return entityToDtoTicketMapper(savedTicket);

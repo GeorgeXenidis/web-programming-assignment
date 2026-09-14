@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ticket Details - Admin Page</title>
+    <title>Ticket Details - User Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,6 +48,8 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 0.95em;
+            box-sizing: border-box;
+            width: 100%;
         }
         .actions {
             margin-top: 20px;
@@ -63,10 +65,10 @@
             font-size: 0.95em;
             transition: background-color 0.2s;
         }
-        .btn-edit {
+        .btn-submit {
             background-color: #007bff;
         }
-        .btn-edit:hover {
+        .btn-submit:hover {
             background-color: #0056b3;
         }
     </style>
@@ -74,21 +76,18 @@
 <body>
 
 <div class="container">
-    <h2>Ticket Details</h2>
+    <h2>Ticket Form</h2>
 
-    <div th:id="'ticket-card-' + ${ticketDto.id}" class="ticket-card">
-        <form id="editTicketForm" class="ticket-info">
-            <!-- Hidden field for original Ticket ID -->
-            <input type="hidden" id="ticketId" th:value="${ticketDto.id}" />
-
+    <div class="ticket-card">
+        <form id="ticketForm" class="ticket-info">
             <div class="form-group">
                 <label for="title">Title</label>
-                <span id="title" class="form-control" th:value="${ticketDto.title}">Example Ticket Title</span>
+                <input type="text" id="title" class="form-control" th:value="${ticketDto.title}" placeholder="Enter ticket title" required />
             </div>
 
             <div class="form-group">
                 <label for="ticketType">Ticket Type</label>
-                <select id="ticketType" name="ticketType">
+                <select id="ticketType" class="form-control" name="ticketType" required>
                     <option value="" disabled selected>Select type of ticket</option>
                     <option value="SOFTWARE">SOFTWARE</option>
                     <option value="HARDWARE">HARDWARE</option>
@@ -98,50 +97,26 @@
             </div>
 
             <div class="form-group">
-                <label for="assigneeId"></label>
-                <span>Assignee ID: 1</span>
-                <input id="assigneeId" class="form-control" th:value="${ticketDto.assigneeId}" />
-            </div>
-
-            <div class="form-group">
-                <label for="ticketStatus"></label>
-                <select id="ticketStatus" name="ticketStatus">
-                    <option value="" disabled selected>Select status of ticket</option>
-                    <option value="NOT_ASSIGNED">NOT_ASSIGNED</option>
-                    <option value="IN_PROGRESS">IN_PROGRESS</option>
-                    <option value="RESOLVED">RESOLVED</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="comments"></label>
-                <span>Comments</span>
-                <input id="comments" class="form-control" th:value="${ticketDto.comments}" />
+                <label for="comments">Comments</label>
+                <textarea id="comments" class="form-control" rows="4" th:text="${ticketDto.comments}" placeholder="Describe your issue..."></textarea>
             </div>
 
             <div class="actions">
-                <button type="button" class="btn btn-edit" onclick="updateTicket()">Save Changes</button>
+                <button type="button" class="btn btn-submit" onclick="submitTicketForm()">Submit</button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
-    async function updateTicket() {
-        const ticketId = document.getElementById('ticketId').value;
-
-        // Construct the updated ticketDto object from inputs
-        const updatedTicketDto = {
-            id: ticketId,
+    async function submitTicketForm() {
+        const ticketData = {
             title: document.getElementById('title').value,
             ticketType: document.getElementById('ticketType').value,
-            assigneeId: document.getElementById('assigneeId').value,
-            ticketStatus: document.getElementById('ticketStatus').value,
             comments: document.getElementById('comments').value
         };
 
-        // Option 1: Append ID as a query parameter
-        const url = `/api/level-admin/ticketDetails/updateTicket`;
+        const url = `/api/level-user/application/technicalSupport`;
 
         try {
             const response = await fetch(url, {
@@ -149,16 +124,17 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(updatedTicketDto)
+                body: JSON.stringify(ticketData)
             });
 
             if (response.ok) {
-                alert('Ticket updated successfully!');
+                alert('Ticket submitted successfully!');
+                window.location.href = '/api/level-user/application/technicalSupport'; // Reset or redirect after submit
             } else {
-                alert('Failed to update ticket. Please check your inputs.');
+                alert('Failed to submit ticket. Please check your inputs.');
             }
         } catch (error) {
-            console.error('Error updating ticket:', error);
+            console.error('Error submitting ticket:', error);
             alert('An error occurred while contacting the server.');
         }
     }
