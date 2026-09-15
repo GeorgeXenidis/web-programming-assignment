@@ -31,7 +31,7 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres -d help-desk"]
       interval: 3s
       timeout: 3s
-      retries: 5
+      retries: 30
 
 networks:
   web-app-net:
