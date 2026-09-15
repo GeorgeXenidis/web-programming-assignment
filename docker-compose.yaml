@@ -1,0 +1,38 @@
+version: '3'
+services:
+  web-programming-assignment:
+    container_name: web-programming-assignment
+    depends_on: 
+      postgres_db:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: dockerfile
+    environment: 
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/help-desk
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  postgres_db:
+    image: postgres:17
+    container_name: postgres-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: help-desk
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: master_p@ssword
+      TZ: "UTC"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d help-desk"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+networks:
+  web-app-net:
+    driver: bridge
