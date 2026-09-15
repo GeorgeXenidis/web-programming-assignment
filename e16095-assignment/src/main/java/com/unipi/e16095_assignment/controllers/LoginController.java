@@ -46,4 +46,9 @@ public class LoginController {
         return modelAndView;
     }
 
+    @GetMapping({"/mainPage", "/mainPage/"})
+    public ModelAndView mainPage() {
+        return new ModelAndView("mainPage");
+    }
+
 }
