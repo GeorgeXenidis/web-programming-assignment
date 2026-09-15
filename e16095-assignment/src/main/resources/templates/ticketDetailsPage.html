@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Details - Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .ticket-card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 15px;
+        }
+        .ticket-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-control {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: background-color 0.2s;
+        }
+        .btn-edit {
+            background-color: #007bff;
+        }
+        .btn-edit:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ticket Details</h2>
+
+    <div th:id="'ticket-card-' + ${ticketDto.id}" class="ticket-card">
+        <form id="editTicketForm" class="ticket-info">
+            <!-- Hidden field for original Ticket ID -->
+            <input type="hidden" id="ticketId" th:value="${ticketDto.id}" />
+
+            <div class="form-group">
+                <label for="title">Title</label>
+                <span id="title" class="form-control" th:value="${ticketDto.title}">Example Ticket Title</span>
+            </div>
+
+            <div class="form-group">
+                <label for="ticketType">Ticket Type</label>
+                <select id="ticketType" name="ticketType">
+                    <option value="" disabled selected>Select type of ticket</option>
+                    <option value="SOFTWARE">SOFTWARE</option>
+                    <option value="HARDWARE">HARDWARE</option>
+                    <option value="SYSTEM_ACCESS">SYSTEM_ACCESS</option>
+                    <option value="NET_ACCESS">NET_ACCESS</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="assigneeId"></label>
+                <span>Assignee ID: 1</span>
+                <input id="assigneeId" class="form-control" th:value="${ticketDto.assigneeId}" />
+            </div>
+
+            <div class="form-group">
+                <label for="ticketStatus"></label>
+                <select id="ticketStatus" name="ticketStatus">
+                    <option value="" disabled selected>Select status of ticket</option>
+                    <option value="NOT_ASSIGNED">NOT_ASSIGNED</option>
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="RESOLVED">RESOLVED</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="comments"></label>
+                <span>Comments</span>
+                <input id="comments" class="form-control" th:value="${ticketDto.comments}" />
+            </div>
+
+            <div class="actions">
+                <button type="button" class="btn btn-edit" onclick="updateTicket()">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    async function updateTicket() {
+        const ticketId = document.getElementById('ticketId').value;
+
+        // Construct the updated ticketDto object from inputs
+        const updatedTicketDto = {
+            id: ticketId,
+            title: document.getElementById('title').value,
+            ticketType: document.getElementById('ticketType').value,
+            assigneeId: document.getElementById('assigneeId').value,
+            ticketStatus: document.getElementById('ticketStatus').value,
+            comments: document.getElementById('comments').value
+        };
+
+        // Option 1: Append ID as a query parameter
+        const url = `/api/level-admin/ticketDetails/updateTicket`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedTicketDto)
+            });
+
+            if (response.ok) {
+                alert('Ticket updated successfully!');
+            } else {
+                alert('Failed to update ticket. Please check your inputs.');
+            }
+        } catch (error) {
+            console.error('Error updating ticket:', error);
+            alert('An error occurred while contacting the server.');
+        }
+    }
+</script>
+
+</body>
+</html>

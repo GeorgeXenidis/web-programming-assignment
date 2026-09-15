@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tickets - User Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .empty-message {
+            text-align: center;
+            color: #666;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .ticket-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease;
+            max-height: 150px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .ticket-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .ticket-info .title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #222;
+        }
+        .ticket-info .ticket-type {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .ticket-info .ticket-assignee {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .ticket-info .ticket-status {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .ticket-info .ticket-comments {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Tickets List</h2>
+
+    <div id="empty-message" th:if="${#lists.isEmpty(allOwnedTicketsList)}" class="empty-message">
+        No tickets were found in the system.
+    </div>
+
+    <div th:each="ticket : ${allOwnedTicketsList}" th:id="'ticket-card-' + ${ticket.id}" class="ticket-card">
+        <div class="ticket-info">
+            <span class="title" th:text="${ticket.title}">exampleTicketTitle</span>
+            <span class="ticket-type" th:text="'Type: ' + ${ticket.ticketType}">Type: exampleTicketType</span>
+            <span class="ticket-assignee" th:text="'Assignee ID: ' + ${ticket.assigneeId}">Assignee ID: 1</span>
+            <span class="ticket-status" th:text="'Ticket Status: ' + ${ticket.ticketStatus}">Ticket Status: NOT_ASSIGNED</span>
+            <span class="ticket-comments" th:text="'Comments: ' + ${ticket.comments}">Comments: A descriptive example of how to resolve the ticket...</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
