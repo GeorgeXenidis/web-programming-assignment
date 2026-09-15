@@ -1,7 +1,6 @@
 package com.unipi.e16095_assignment.controllers;
 
 import com.unipi.e16095_assignment.dtos.AnnouncementDto;
-import com.unipi.e16095_assignment.dtos.TicketDto;
 import com.unipi.e16095_assignment.dtos.UserDto;
 import com.unipi.e16095_assignment.enums.RoleEnum;
 import com.unipi.e16095_assignment.services.AnnouncementService;

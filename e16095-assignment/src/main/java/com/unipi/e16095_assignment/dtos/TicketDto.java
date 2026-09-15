@@ -1,7 +1,5 @@
 package com.unipi.e16095_assignment.dtos;
 
-import com.unipi.e16095_assignment.enums.TicketTypeEnum;
-
 import java.io.Serializable;
 import java.util.Objects;
 
