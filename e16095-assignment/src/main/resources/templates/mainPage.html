@@ -115,6 +115,16 @@
         <a th:href="@{/api/level-user/application/getAllOwned}" class="btn">View Owned Tickets</a>
     </div>
 
+    <!-- Box 3: Browse all existing tickets -->
+    <div class="nav-card"
+         th:if="${#strings.equalsIgnoreCase(session.userRole, 'ADMIN') or #strings.equalsIgnoreCase(session.userRole, 'TECH')}">
+        <div>
+            <div class="card-title">All Tickets</div>
+            <div class="card-description">Browse all existing tickets.</div>
+        </div>
+        <a th:href="@{/api/level-tech/tickets/all}" class="btn">View Existing Tickets</a>
+    </div>
+
     <!-- Box 3: Announcements -->
     <div class="nav-card">
         <div>
@@ -122,6 +132,14 @@
             <div class="card-description">Read active system announcements.</div>
         </div>
         <a th:href="@{/api/level-user/announcements/all}" class="btn">View News</a>
+    </div>
+
+    <div class="nav-card" th:if="${#strings.equalsIgnoreCase(session.userRole, 'ADMIN')}">
+        <div>
+            <div class="card-title">New Announcement</div>
+            <div class="card-description">Create a new announcement.</div>
+        </div>
+        <a th:href="@{/api/level-admin/announcements/new}" class="btn">New Announcement</a>
     </div>
 
     <!-- Box 4: Admin Panel -->
