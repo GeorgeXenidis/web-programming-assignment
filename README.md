@@ -2,7 +2,21 @@ Project Overview
 =====================
 This Spring Boot application provides a ticket management and announcement platform for university students. The architecture a model-view-controller (MVC) pattern to isolate web routing, business logic, and database persistence via Spring Data JPA and PostgreSQL.
 
-1.1 Primary Classes & Roles
+1.1 How to Run the Application
+===============================
+In order for the app to run in any computer, it is packaged and dockerized.
+More specifically:
+1. The dockerfile will create a lightweight container image in which the Java application will run.
+2. The docker-compose will create two containers (postgres-db and web-programming-assignment) to host the DB (postgres database) 
+and the Java application.
+3. Finally, to start the application, simply execute the runOnWindows.bat for Windows OS (a double click is enough) or the 
+runOnLinux.sh for Linux OS.
+4. The app's source code is under the "\web-programming-assignment\e16095-assignment" directory.
+5. When the app starts, it creates an admin user for convinience. This user has username: admin and password: admin
+
+#Note: Whenever the application starts anew, the DB's stored data inside the volume get erased, meaning that in the next run DB will be empty!!
+
+1.2 Primary Classes & Roles
 ==========================
 * Controllers
 1. LoginController: Handles user authentication, login view rendering, and session creation.
