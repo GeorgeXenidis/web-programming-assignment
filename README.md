@@ -12,7 +12,7 @@ and the Java application.
 3. Finally, to start the application, simply execute the runOnWindows.bat for Windows OS (a double click is enough) or the 
 runOnLinux.sh for Linux OS.
 4. The app's source code is under the "\web-programming-assignment\e16095-assignment" directory.
-5. When the app starts, it creates an admin user for convinience. This user has username: admin and password: admin
+5. When the app starts, it creates an admin user for convenience. This user has username: admin and password: admin
 
 #Note: Whenever the application starts anew, the DB's stored data inside the volume get erased, meaning that in the next run DB will be empty!!
 
