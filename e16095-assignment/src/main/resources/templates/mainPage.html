@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Navigation Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Fixed Top-Right Logout Button */
+        .top-right-logout {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .btn-top-logout {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        .btn-top-logout:hover {
+            background-color: #c82333;
+            transform: translateY(-1px);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .nav-card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .nav-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+        }
+        .card-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .card-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.95em;
+            transition: background-color 0.2s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Navigation Dashboard</h2>
+
+<div class="grid-container">
+
+    <!-- Box 1: Submit Ticket -->
+    <div class="nav-card" th:if="${#strings.equalsIgnoreCase(session.userRole, 'USER')}">
+        <div>
+            <div class="card-title">New Ticket</div>
+            <div class="card-description">Submit a new technical support request.</div>
+        </div>
+        <a th:href="@{/api/level-user/application/newTicketForm}" class="btn">Create Ticket</a>
+    </div>
+
+    <!-- Box 2: View My Tickets -->
+    <div class="nav-card" th:if="${#strings.equalsIgnoreCase(session.userRole, 'USER')}">
+        <div>
+            <div class="card-title">My Tickets</div>
+            <div class="card-description">Check status of your submitted tickets.</div>
+        </div>
+        <a th:href="@{/api/level-user/application/getAllOwned}" class="btn">View Owned Tickets</a>
+    </div>
+
+    <!-- Box 3: Announcements -->
+    <div class="nav-card">
+        <div>
+            <div class="card-title">Announcements</div>
+            <div class="card-description">Read active system announcements.</div>
+        </div>
+        <a th:href="@{/api/level-user/announcements/all}" class="btn">View News</a>
+    </div>
+
+    <!-- Box 4: Admin Panel -->
+    <div class="nav-card" th:if="${#strings.equalsIgnoreCase(session.userRole, 'ADMIN')}">
+        <div>
+            <div class="card-title">User Management</div>
+            <div class="card-description">Manage registered system accounts.</div>
+        </div>
+        <a th:href="@{/api/level-admin/getAllUsers}" class="btn">Manage Users</a>
+    </div>
+
+    <!-- Top-Right Corner Logout Button -->
+    <div class="top-right-logout">
+        <a th:href="@{/api/logout}" class="btn-top-logout">Logout</a>
+    </div>
+
+</div>
+
+</body>
+</html>

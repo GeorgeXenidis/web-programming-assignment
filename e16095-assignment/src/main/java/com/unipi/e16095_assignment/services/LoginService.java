@@ -49,7 +49,7 @@ public class LoginService {
         httpSession.setAttribute("userRole", userDto.getRole());
 
 //        Suppose that announcements will represent something like main page of sorts...
-        modelAndView.setViewName("redirect:/api/level-user/announcements/all/");
+        modelAndView.setViewName("mainPage");
 
         return modelAndView;
     }

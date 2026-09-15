@@ -13,20 +13,27 @@
             margin: 0;
             background-color: #f4f4f9;
         }
-        .login-box {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+        .btn-top-logout {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: background-color 0.2s ease, transform 0.1s ease;
         }
+        .btn-top-logout:hover {
+            background-color: #c82333;
+            transform: translateY(-1px);
+        }
+
         .login-box h2 {
             margin-bottom: 20px;
             text-align: center;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
@@ -60,5 +67,10 @@
 </head>
 <body>
     <h1 th:text="${errorMessage}">A descriptive error message</h1>
+
+    <!-- Top-Right Corner Logout Button -->
+    <div class="top-right-logout">
+        <a th:href="@{/api/logout}" class="btn-top-logout">Logout</a>
+    </div>
 </body>
 </html>
