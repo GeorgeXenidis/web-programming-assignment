@@ -114,7 +114,7 @@
 
     <!-- Box 3: Browse all existing tickets -->
     <div class="nav-card"
-         th:if="${#strings.equalsIgnoreCase(session.userRole, 'ADMIN') or #strings.equalsIgnoreCase(session.userRole, 'TECH')}">
+         th:if="${#strings.equalsIgnoreCase(session.userRole, 'ADMIN') or #strings.equalsIgnoreCase(session.userRole, 'TECHNICIAN')}">
         <div>
             <div class="card-title">All Tickets</div>
             <div class="card-description">Browse all existing tickets.</div>
