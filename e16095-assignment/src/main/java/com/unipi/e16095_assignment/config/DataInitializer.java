@@ -6,6 +6,8 @@ import com.unipi.e16095_assignment.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class DataInitializer implements CommandLineRunner {
 
@@ -20,18 +22,20 @@ public class DataInitializer implements CommandLineRunner {
         String adminUsername = "admin";
         String adminPassword = "admin";
 
-        // Prevent creating duplicate admin records on restart
-        if (userRepository.findByUsername(adminUsername).isEmpty()) {
-            Users admin = new Users();
-            admin.setUsername(adminUsername);
-            admin.setPassword(adminPassword); // Replace with hashed password if using BCrypt
-            admin.setEmail("admin@system.com");
-            admin.setRole(RoleEnum.ADMIN);
+        Users newAdmin = new Users();
+        newAdmin.setUsername(adminUsername);
+        newAdmin.setPassword(adminPassword); // Replace with hashed password if using BCrypt
+        newAdmin.setEmail("admin@system.com");
+        newAdmin.setRole(RoleEnum.ADMIN);
 
-            userRepository.save(admin);
-            System.out.println(">>> Initial admin user created successfully.");
-        } else {
-            System.out.println(">>> User already exists.");
+        // Prevent creating duplicate admin records on restart
+        Optional<Users> existingAdmin = userRepository.findByUsername(adminUsername);
+        if (existingAdmin.isPresent()) {
+            System.out.println(">>> User already exists. Deleting...");
+            userRepository.deleteById(existingAdmin.get().getId());
         }
+
+        userRepository.save(newAdmin);
+        System.out.println(">>> Initial admin user created successfully.");
     }
 }
