@@ -6,17 +6,20 @@ This Spring Boot application provides a ticket management and announcement platf
 ===============================
 In order for the app to run in any computer, it is packaged and dockerized.
 More specifically:
-1. The dockerfile will create a lightweight container image in which the Java application will run.
-2. The docker-compose will create two containers (postgres-db and web-programming-assignment) to host the DB (postgres database) 
+1. Under location "web-programming-assignment\e16095-assignment\" run the maven command in a cmd or terminal: mvn clean package -Dmaven.test.skip=true
+2. After running the above command, a "target" folder will be created. Inside "target" folder, copy the "e16095-assignment-0.0.1-SNAPSHOT.jar" file 
+and paste it inside "e16095-assignment" directory (one dir above from which the .jar file exists).
+3. The dockerfile will create a lightweight container image in which the Java application will run.
+4. The docker-compose will create two containers (postgres-db and web-programming-assignment) to host the DB (postgres database) 
 and the Java application.
-3. Finally, to start the application, simply execute the runOnWindows.bat for Windows OS (a double click is enough) or the 
-runOnLinux.sh for Linux OS.
-4. Your docker client app should be active on your computer. For example, Docker Desktop should be running by the time the "runOnWindows.bat" runs.
-4. The app's source code is under the "\web-programming-assignment\e16095-assignment" directory.
-5. When the app starts, it creates an admin user for convenience. This user has username: admin and password: admin
-6. Visit URL "http://localhost:8080/api/login" to start browsing the app. Since there is no other user than the admin, you have to login as admin
+5. Finally, to start the application, simply execute the runOnWindows.bat for Windows OS (a double click is enough) or the 
+runOnLinux.sh for Linux OS. runOnWindows.bat lives right under "web-programming-assignment\" dir. The application takes about 1-2 minutes to start.
+6. Your docker client app should be active on your computer. For example, Docker Desktop should be running by the time the "runOnWindows.bat" runs.
+7. The app's source code is under the "\web-programming-assignment\e16095-assignment" directory.
+8. When the app starts, it creates an admin user for convenience. This user has username: admin and password: admin
+9. Visit URL "http://localhost:8080/api/login" to start browsing the app. Since there is no other user than the admin, you have to login as admin
 (using the above credentials) and create new users, tickets (technical support requests) and announcements.
-7. You may logout at any time and navigate through allowed pages (based on user's role) via the "Main Page" button.
+10. You may logout at any time and navigate through allowed pages (based on user's role) via the "Main Page" button.
 
 #Note: Whenever the application starts anew, the DB's stored data inside the volume get erased, meaning that in the next run DB will be empty!!
 
